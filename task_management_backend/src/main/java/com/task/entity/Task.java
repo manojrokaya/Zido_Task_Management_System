@@ -1,6 +1,5 @@
 package com.task.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +18,6 @@ public class Task {
     private String status; // PENDING, IN_PROGRESS, COMPLETED
 
     @ManyToOne
-    @JoinColumn(name = "assigned_to")
-    private User assignedTo;
+    @JoinColumn(name = "user_id")
+    private User assignedUser;
 }
