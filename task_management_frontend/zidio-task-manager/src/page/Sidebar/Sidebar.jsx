@@ -1,6 +1,8 @@
 import { Avatar,Button } from '@mui/material'
 import React, { useState } from 'react'
 import './Sidebar.css'
+import CreateNewTaskForm from '../Task/CreateTask'
+
 
 
 const menu=[
@@ -16,7 +18,18 @@ const role="ROLE_ADMIN"
 
 const Sidebar = () => {
     const[activeMenu,setActiveMenu]=useState("Home")
+    const [openCreateTaskForm,setOpenCreateTaskForm]=useState(false);
+            const handleCloseCreateTaskForm=()=>{
+                setOpenCreateTaskForm(false);
+            };
+            const handleOpenCreateTaskModel=()=>{
+                setOpenCreateTaskForm(true)
+                
+            };
     const handleMenuChange=(item)=>{
+        if(item.name=="Create New Task"){
+            handleOpenCreateTaskModel()
+        }
         setActiveMenu(item.name)
     }
     const handleLogout=()=>{
@@ -24,6 +37,7 @@ const Sidebar = () => {
     }
 
   return (
+    <>
     <div className='card min-h-[85vh] flex flex-col justify-center fixed w-[20vw]'>
         <div className='space-y-5 h-full'>
         <div className="flex justify-center">
@@ -40,6 +54,8 @@ const Sidebar = () => {
         <Button onClick={handleLogout} sx={{padding:'.7rem',borderRadius:'2rem'}} fullWidth className='logoutButton'>Logout</Button>
         </div>
     </div>
+    <CreateNewTaskForm open={openCreateTaskForm} handleClose={handleCloseCreateTaskForm}/>
+    </>
   )
 }
 

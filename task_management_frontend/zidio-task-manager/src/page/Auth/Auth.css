@@ -1,0 +1,114 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.box{
+    position: relative;
+    width: 100%;
+    padding: 40px 30px;
+    box-shadow: rgba(215,106,255,0.507) 0px 0px 100px;
+    perspective: 500px;
+    height: 70%;
+}
+
+.box .cover{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 50%;
+    z-index: 98;
+    transition: all 1s ease;
+    transform-origin: left ;
+    transform-style: preserve-3d;
+}
+
+.box .rotate-active{
+    transform: rotateY(-180deg);
+
+}
+.box .cover .front,
+.box .cover .back{
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+
+}
+
+.cover .back{
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+
+.box .cover ::before,
+.box .cover ::after{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #090013;
+    opacity: 0.4;
+    z-index: 12;
+}
+
+.box .cover::after{
+    opacity: 0.3;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+
+.box .cover .img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: 10;
+}
+
+.box .cover .text{
+    position: absolute;
+    z-index: 130;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover .text .text-1,
+.cover .text .text-2{
+    font-size: 26px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    line-height: normal;
+}
+
+.cover .text .text-2{
+    margin-top: 7px;
+    font-size: 16px;
+}
+
+.box .form-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-content .login-form,
+.form-content .signup-form{
+    width: calc(100% / 2-25px);
+}
+
+.textStyle{
+    color: #c24dd0;
+    text-shadow: 0px 0px 40px rgba(255, 255, 255);
+}
