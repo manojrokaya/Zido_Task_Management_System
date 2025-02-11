@@ -1,33 +1,36 @@
 package com.task.service;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.task.entity.Role;
 import com.task.entity.User;
 import com.task.repository.UserRepository;
 
-
 @Service
-public class UserService {
-	private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+public class UserService implements UserDetailsService
+{
+	@Autowired
+	private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-    
-    public User registerUser(String username, String password, Set<Role> roles) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setRoles(roles);
-        return userRepository.save(user);
-    }
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		User user = userRepository.findByEmail(username);
+		if(user == null)
+		{
+			throw new UsernameNotFoundException("user not found with email"+username);
+		}
+		List<GrantedAuthority> authorities =  new ArrayList();
+		return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(), authorities);
+	}
+	
 
   
 }
