@@ -2,6 +2,7 @@ import { useState } from "react";
 import React from 'react'
 import "./Auth.css"
 import Signin from "./Signin";
+import Signup from "./Signup";
 
 const Auth = () => {
 
@@ -15,14 +16,14 @@ const Auth = () => {
         <div className='box lg:max-w-4xl'>
             <div className={`cover ${isRegister?"rotate-active":""}`}>
                 <div className="front">
-                    <img src="https://yt3.ggpht.com/yAiVmyZ3kQwGph336xoBnncz6vyssKVYenpBJk85mMgXEcAYL98G9ZFtqqATAMY7g_bmGFcWrQ=s88-c-k-c0x00ffffff-no-rj" alt="" />
+                    <img src="https://images.pexels.com/photos/3243/pen-calendar-to-do-checklist.jpg?auto=compress&cs=tinysrgb&w=600" alt="" />
                     <div className="text">
-                        <span className="text-1">Success is built upon well-organized tasks</span>
-                        <span className="text02 text-xs">Let's get Connected</span>
+                        <span className="text-1" style={{color:"purple"}}>Success is built upon well-organized tasks</span>
+                        <span className="text-2 text-xs " style={{color:"purple"}}>Let's get Connected</span>
                     </div>
                 </div>
                 <div className="back">
-                    <img src="https://yt3.ggpht.com/yAiVmyZ3kQwGph336xoBnncz6vyssKVYenpBJk85mMgXEcAYL98G9ZFtqqATAMY7g_bmGFcWrQ=s88-c-k-c0x00ffffff-no-rj" alt="" />
+                    <img src="https://images.pexels.com/photos/3184423/pexels-photo-3184423.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />
 
                 </div>
             </div>
@@ -30,10 +31,11 @@ const Auth = () => {
                 <div className="form-content h-full">
                     <div className="login-form">
 
-                    <Signin/>
+                    <Signin togglePanel={togglePanel}/>
                     </div>
                     <div className="signup-form">
-                    Signup Form
+                    <Signup togglePanel={togglePanel}/>
+
                     </div>
 
                 </div>
