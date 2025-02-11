@@ -5,7 +5,7 @@ import Signin from "./Signin";
 
 const Auth = () => {
 
-    const [isRegister,setIsRegister]=useState(false);
+    const [isRegister,setIsRegister]=useState(true);
     const togglePanel=()=>{
         setIsRegister(!isRegister)
     };
