@@ -2,12 +2,13 @@ package com.task.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ import com.task.request.LoginRequest;
 import com.task.service.UserService;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController
 {
 	@Autowired
@@ -75,7 +77,7 @@ public class AuthController
 		
 		System.out.println(username+"----------"+password);
 		
-		Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
+		Authentication authentication =  authenticate(username, password);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		String token = JwtProvider.generateToken(authentication);
@@ -89,5 +91,23 @@ public class AuthController
 		return new ResponseEntity<>(authResponse, HttpStatus.OK);
 	}
 	
+	private Authentication authenticate(String username, String password)
+	{
+		UserDetails userDetails = userService.loadUserByUsername(username);
+		System.out.println("Sigin in UserDetails.-"+userDetails);
+		
+		if(userDetails ==null)
+		{
+			System.out.println("Sigin in userDetails -"+userDetails);
+			throw new BadCredentialsException("Invalid usernmae or password");
+		}
+		if(!passwordEncoder.matches(password, userDetails.getPassword()))
+		{
+			System.out.println("Sign in userDetails -password not match"+userDetails);
+			throw new BadCredentialsException("Inavlid username or password");
+		}
+		
+		return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+	}
 	
 }

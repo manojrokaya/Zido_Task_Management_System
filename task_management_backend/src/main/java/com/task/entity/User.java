@@ -2,7 +2,7 @@ package com.task.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -10,7 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String fullName;

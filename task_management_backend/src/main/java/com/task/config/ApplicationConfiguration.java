@@ -36,15 +36,15 @@ public class ApplicationConfiguration
 			return http.build();
 	}
 	private CorsConfigurationSource corsConfigurationSoruce()
-	{
+	{  
 		return new 	CorsConfigurationSource()
 		{
 			@Override
 			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 				// TODO Auto-generated method stub
 				CorsConfiguration cfg = new CorsConfiguration();
-				cfg.setAllowedOrigins(Collections.singletonList(null));
-				cfg.setAllowedMethods(Collections.singletonList(null));
+				cfg.setAllowedOrigins(Collections.singletonList("*"));
+				cfg.setAllowedMethods(Collections.singletonList("*"));
 				cfg.setAllowCredentials(true);
 				cfg.setAllowedHeaders(Collections.singletonList(null));
 				cfg.setExposedHeaders(Arrays.asList("Authorization"));

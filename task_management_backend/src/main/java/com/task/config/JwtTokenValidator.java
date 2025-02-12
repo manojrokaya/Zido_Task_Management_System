@@ -28,13 +28,16 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String jwt = request.getHeader(JwtConstant.JWT_HEADERS);
+		String jwt = request.getHeader(JwtConstant.JWT_HEADER);
+		
+		System.out.println("jwt------------------"+jwt);
 		if(jwt !=null)
 		{
+			
 			jwt = jwt.substring(7);			
 			try {
 				SecretKey key =Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
-				Claims claim = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(jwt).getBody();
+				Claims claim = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 				
 				String email = String.valueOf(claim.get("email"));
 				String authorities = String.valueOf(claim.get("authorities"));
