@@ -73,7 +73,7 @@ public class TaskServiceImpl implements TaskServices {
 		return taskRepository.save(existingTask);
 	}
 
-	@Override
+	@Override 
 	public void deleteTask(Long id) throws Exception{
 		// TODO Auto-generated method stub
 		getTaskById(id);
@@ -98,7 +98,7 @@ public class TaskServiceImpl implements TaskServices {
 		List<Task> allTasks = taskRepository.findByAssignedUserId(userId);
 		List<Task> filteredTasks = allTasks.stream().filter(
 				task-> status==null || task.getStatus().name().equalsIgnoreCase(status.toString())).collect(Collectors.toList());
-		
+		 
 		return filteredTasks;
 	}
 

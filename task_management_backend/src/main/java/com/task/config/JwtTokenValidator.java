@@ -1,6 +1,7 @@
 package com.task.config;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.crypto.SecretKey;
@@ -31,13 +32,14 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 		String jwt = request.getHeader(JwtConstant.JWT_HEADER);
 		
 		System.out.println("jwt------------------"+jwt);
-		if(jwt !=null)
+		if(jwt !=null  && jwt.startsWith("Bearer "))
 		{
-			
 			jwt = jwt.substring(7);			
 			try {
-				SecretKey key =Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
+				SecretKey key =Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 				Claims claim = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+				
+				System.out.println("Claims: " + claim);
 				
 				String email = String.valueOf(claim.get("email"));
 				String authorities = String.valueOf(claim.get("authorities"));
