@@ -34,7 +34,7 @@ public class AuthController
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("/signup")
+	@PostMapping("/siginup")
 	public ResponseEntity<AuthResponse>  createUserHandler(@RequestBody User user) throws Exception
 	{
 		String email = user.getEmail();

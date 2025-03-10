@@ -1,5 +1,6 @@
 package com.task.config;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import io.jsonwebtoken.security.Keys;
 
 public class JwtProvider {
 	
-	 static SecretKey key =Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
+	 static SecretKey key =Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 	  
 	public static String generateToken(Authentication auth)
 	{
@@ -44,7 +45,7 @@ public class JwtProvider {
 
 	public static String populateAuthorities(Collection<? extends GrantedAuthority> collection) {
 		// TODO Auto-generated method stub
-		Set<String> auths = new HashSet();
+		Set<String> auths = new HashSet<>()	;
 		
 		for(GrantedAuthority authority :collection)
 		{

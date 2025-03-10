@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.security.core.Authentication;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -37,7 +40,8 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 			jwt = jwt.substring(7);			
 			try {
 				SecretKey key =Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes(StandardCharsets.UTF_8));
-				Claims claim = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+				
+					Claims claim = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 				
 				System.out.println("Claims: " + claim);
 				
@@ -46,11 +50,12 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 				
 				List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
 				Authentication authentication = new UsernamePasswordAuthenticationToken(email,null,auths);
-				
+				  	
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 			catch(Exception e)
 			{
+			
 				throw new  BadCredentialsException("Invalid token....");
 			}
 		}

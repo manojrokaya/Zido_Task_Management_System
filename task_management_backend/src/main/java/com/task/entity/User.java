@@ -1,4 +1,4 @@
-package com.task.entity;
+ package com.task.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

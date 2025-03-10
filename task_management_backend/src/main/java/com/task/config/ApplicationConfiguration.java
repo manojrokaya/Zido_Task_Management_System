@@ -1,4 +1,4 @@
-package com.task.config;
+ package com.task.config;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,7 +27,7 @@ public class ApplicationConfiguration
 							SessionCreationPolicy.STATELESS
 							)
 					).authorizeHttpRequests(
-							Authorize -> Authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll()
+							Authorize -> Authorize.requestMatchers("/auth/signup", "/auth/login").authenticated().anyRequest().permitAll()
 							).addFilterBefore(new JwtTokenValidator() , BasicAuthenticationFilter.class)  
 								.csrf(csrf->csrf.disable())
 								.cors(cors->cors.configurationSource(corsConfigurationSoruce()))
