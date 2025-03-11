@@ -1,12 +1,11 @@
-package com.task.service;
+package com.task.task_service.service;
 
 import java.util.List;
 
-import com.task.entity.Task;
-import com.task.status.TaskStatus;
+import com.task.task_service.entity.Task;
+import com.task.task_service.status.TaskStatus;
 
-
-public interface TaskServices 
+public interface TaskService 
 {
 	Task createTask(Task task, String requestRole) throws Exception;
 	

@@ -1,4 +1,4 @@
-package com.task.status;
+package com.task.task_service.status;
 
 public enum TaskStatus {
 	

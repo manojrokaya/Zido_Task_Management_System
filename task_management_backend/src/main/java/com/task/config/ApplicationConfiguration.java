@@ -25,7 +25,7 @@ public class ApplicationConfiguration
 			http.sessionManagement(
 					management -> management.sessionCreationPolicy(
 							SessionCreationPolicy.STATELESS
-							)
+							) 
 					).authorizeHttpRequests(
 							Authorize -> Authorize.requestMatchers("/auth/signup", "/auth/login").authenticated().anyRequest().permitAll()
 							).addFilterBefore(new JwtTokenValidator() , BasicAuthenticationFilter.class)  

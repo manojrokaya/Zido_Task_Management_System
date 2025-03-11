@@ -1,4 +1,4 @@
-package com.task.controller;
+package com.task.task_service.controller;
 
 import java.util.List;
 
@@ -16,27 +16,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.task.entity.Task;
-import com.task.entity.User;
-
-
-import com.task.service.TaskServices;
-import com.task.service.UserServices;
-import com.task.status.TaskStatus;
+import com.task.task_service.dto.UserDto;
+import com.task.task_service.entity.Task;
+import com.task.task_service.service.TaskService;
+import com.task.task_service.service.UserService;
+import com.task.task_service.status.TaskStatus;
 
 @RestController
-@RequestMapping("/tasks")
-public class TaskController {
+@RequestMapping("/api/tasks")
+public class TaskController
+{
 	@Autowired
-    private TaskServices taskServices;
+    private TaskService taskServices;
 	
 	@Autowired 
-	private UserServices userServices;
+	private UserService userService;
     
 	@PostMapping
    public ResponseEntity<Task> createTask(@RequestBody Task task, @RequestHeader("Authorization") String jwt) throws Exception
    {
-	   User user = userServices.getUserProfile(jwt);
+	   UserDto user = userService.getUserProfile(jwt);
 	   Task cratedTask = taskServices.createTask(task, user.getRole());
 	   return new ResponseEntity<>(cratedTask, HttpStatus.CREATED);
    }
@@ -44,7 +43,7 @@ public class TaskController {
 	@GetMapping("/{id}")
 	   public ResponseEntity<Task> getTaskById(@PathVariable Long id,@RequestHeader("Authorization") String jwt) throws Exception
 	   {
-		   User user = userServices.getUserProfile(jwt);
+		   UserDto user = userService.getUserProfile(jwt);
 		   Task task = taskServices.getTaskById(id);
 		   return new ResponseEntity<>(task, HttpStatus.OK);
 	   }
@@ -52,7 +51,7 @@ public class TaskController {
 	@GetMapping("/user")
 	   public ResponseEntity<List<Task>> getAssignedUsersTask(@RequestParam(required=false) TaskStatus status,@RequestHeader("Authorization") String jwt) throws Exception
 	   {
-		   User user = userServices.getUserProfile(jwt);
+		   UserDto user = userService.getUserProfile(jwt);
 		   List<Task> tasks = taskServices.assignedUsersTask(user.getId(), status);
 
 		   return new ResponseEntity<>(tasks, HttpStatus.OK);
@@ -61,7 +60,7 @@ public class TaskController {
 	@GetMapping()
 	   public ResponseEntity<List<Task>> getAllTask(@RequestParam(required=false) TaskStatus status,@RequestHeader("Authorization") String jwt) throws Exception
 	   {
-		   User user = userServices.getUserProfile(jwt);
+		   UserDto user = userService.getUserProfile(jwt);
 		   List<Task> tasks = taskServices.getAllTasks(status);
 
 		   return new ResponseEntity<>(tasks, HttpStatus.OK);
@@ -70,7 +69,7 @@ public class TaskController {
 	@PutMapping("/user{id}/assigned")
 	   public ResponseEntity<Task> assignedTaskToUser(@PathVariable Long id, @PathVariable Long userId,@RequestHeader("Authorization") String jwt) throws Exception
 	   {
-		   User user = userServices.getUserProfile(jwt);
+		   UserDto user = userService.getUserProfile(jwt);
 		   Task tasks = taskServices.assignedToUser(userId, id);
 
 		   return new ResponseEntity<>(tasks, HttpStatus.OK);
@@ -79,7 +78,7 @@ public class TaskController {
 	@PutMapping("{id}")
 	   public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task req,@RequestHeader("Authorization") String jwt) throws Exception
 	   {
-		   User user = userServices.getUserProfile(jwt);
+		   UserDto user = userService.getUserProfile(jwt);
 		   Task tasks = taskServices.updateTask(id, req, user.getId());
 
 		   return new ResponseEntity<>(tasks, HttpStatus.OK);
@@ -102,11 +101,4 @@ public class TaskController {
 
 		   return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	   }
-	
-	
-	
-	
-    
 }
-
-

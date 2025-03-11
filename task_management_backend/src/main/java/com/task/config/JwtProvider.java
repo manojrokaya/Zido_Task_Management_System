@@ -22,7 +22,7 @@ public class JwtProvider {
 	public static String generateToken(Authentication auth)
 	{
 		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
-		
+		 
 		String roles = populateAuthorities(authorities);
 		
 		String jwt = Jwts.builder().setIssuedAt(new Date())

@@ -1,4 +1,4 @@
-package com.task.service;
+package com.task.task_service.serviceimpl;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.task.entity.Task;
-import com.task.repository.TaskRepository;
-import com.task.status.TaskStatus;
+
+import com.task.task_service.entity.Task;
+import com.task.task_service.repository.TaskRepository;
+import com.task.task_service.service.TaskService;
+import com.task.task_service.status.TaskStatus;
 
 @Service
-public class TaskServiceImpl implements TaskServices {
+public class TaskServiceImpl implements TaskService {
 	
 	@Autowired
 	private TaskRepository taskRepository;

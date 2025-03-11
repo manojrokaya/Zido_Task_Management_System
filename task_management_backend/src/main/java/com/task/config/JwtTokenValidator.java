@@ -6,15 +6,12 @@ import java.util.List;
 
 import javax.crypto.SecretKey;
 
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.Claims;
@@ -27,7 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 public class JwtTokenValidator extends OncePerRequestFilter {
-
+	 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -41,8 +38,8 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 			try {
 				SecretKey key =Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 				
-					Claims claim = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
-				
+				Claims claim = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+				 
 				System.out.println("Claims: " + claim);
 				
 				String email = String.valueOf(claim.get("email"));
