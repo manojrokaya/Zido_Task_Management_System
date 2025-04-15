@@ -14,20 +14,20 @@ import com.task.entity.User;
 import com.task.service.UserServices;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 	
 	@Autowired
 	private UserServices userServices;
 	
-	@GetMapping("/profile/")
+	@GetMapping("/profile")
 	public ResponseEntity<User>  getUserProfile(@RequestHeader("Authorization") String jwt)
 	{
 		User user = userServices.getUserProfile(jwt);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
-	@GetMapping("path")
+	@GetMapping()
 	public ResponseEntity<List<User>> getUsers(@RequestHeader("Au thorization") String jwt) {
 		List<User> user = userServices.getAllUsers();
 		return new ResponseEntity<>(user, HttpStatus.OK);

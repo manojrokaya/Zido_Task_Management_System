@@ -14,7 +14,7 @@ import com.task.task_service.service.TaskService;
 import com.task.task_service.status.TaskStatus;
 
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceImpl implements TaskService {  
 	
 	@Autowired
 	private TaskRepository taskRepository;
