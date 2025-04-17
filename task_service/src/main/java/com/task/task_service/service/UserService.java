@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.task.task_service.dto.UserDto;
 
-@FeignClient(name="user_service" , url="http://localhost:8987")
+@FeignClient(name="user-service" , url="http://localhost:8761")
 public interface UserService 
 {
 	@GetMapping("api/user/profile")

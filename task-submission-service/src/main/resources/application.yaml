@@ -9,7 +9,7 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/yt_task_submission_service
+    url: jdbc:mysql://localhost:3306/zidio_task_management_sys
     username: root
-    password: Balu@123456
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver

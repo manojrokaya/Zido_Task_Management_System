@@ -1,12 +1,14 @@
 package com.zosh.task_submission_service.service;
 
-import com.zosh.task_submission_service.modal.TaskDto;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@com.zosh.task_submission_service.service.FeignClient(name = "SUBMISSION-SERVICE",url = "http://localhost:5003/")
+import com.zosh.task_submission_service.modal.TaskDto;
+
+@FeignClient(name="task-service", url="http://localhost:8988/")
 public interface TaskService {
 
     @GetMapping("/api/tasks/{id}")
