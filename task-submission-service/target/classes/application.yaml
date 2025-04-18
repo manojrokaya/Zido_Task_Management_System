@@ -1,6 +1,5 @@
 server:
-  port: 5003
-
+  port: 8755
 spring:
   application:
     name: SUBMISSION-SERVICE

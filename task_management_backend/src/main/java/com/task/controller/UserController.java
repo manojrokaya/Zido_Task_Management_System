@@ -27,7 +27,7 @@ public class UserController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
-	@GetMapping()
+	@GetMapping("/")
 	public ResponseEntity<List<User>> getUsers(@RequestHeader("Au thorization") String jwt) {
 		List<User> user = userServices.getAllUsers();
 		return new ResponseEntity<>(user, HttpStatus.OK);
